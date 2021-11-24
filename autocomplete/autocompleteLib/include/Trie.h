@@ -1,13 +1,18 @@
 #pragma once
+#include <string>
 #include <vector>
 class Trie {
   struct Node {
-    std::vector<Node*> children;
+    Node* children[255];
   };
 
  public:
-  void insert(char c);
-  uint32_t leafNodeCount() const; 
+  Trie() : head(new Node*(new Node())) {}
+
+  void insert(const std::string& key);
+
+  bool find(const std::string& key) const;
+
  private:
-  Node* head;
+  Node** head;
 };
