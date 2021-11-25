@@ -1,6 +1,7 @@
 #include <Autocompleter.h>
 #include <Trie.h>
 
+#include <set>
 #include <string>
 #include <vector>
 
@@ -68,4 +69,29 @@ TEST(TrieTest, insertSamePrefix) {
 
   EXPECT_TRUE(trie.find("hello"));
   EXPECT_TRUE(trie.find("helium"));
+}
+
+TEST(TrieTest, stringsInEmptyTrie) {
+  Trie trie;
+
+  ASSERT_EQ(trie.stringsWithPrefix(std::string("hel")),
+            std::set<std::string>());
+}
+
+TEST(TrieTest, oneStringWithPrefix) {
+  Trie trie;
+
+  trie.insert("hello");
+
+  ASSERT_EQ(trie.stringsWithPrefix(std::string("hel")).size(), 1);
+}
+
+TEST(TrieTest, multipleStringsSamePrefix) {
+  Trie trie;
+
+  trie.insert("hello");
+  trie.insert("helium");
+  trie.insert("help");
+
+  ASSERT_EQ(trie.stringsWithPrefix(std::string("hel")).size(), 3);
 }
