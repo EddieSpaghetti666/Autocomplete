@@ -29,7 +29,7 @@
     <ClCompile Include="src\Trie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AutoCompleter.cpp">
+    <ClCompile Include="src\Autocompleter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

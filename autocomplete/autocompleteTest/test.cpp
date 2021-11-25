@@ -6,11 +6,33 @@
 #include <vector>
 
 #include "gtest/gtest.h"
-TEST(Autocomplete, emptyString) {
+
+class AutocompleteTest : public ::testing::Test {
+ public:
+  void SetUp() override { ac.setDictionary(dictionary); }
+
+ protected:
   Autocompleter ac;
-  auto strings = ac.getAllStringsFor("");
-  std::vector<std::string> emptyList;
-  ASSERT_EQ(strings, emptyList);
+  const std::vector<std::string> dictionary = {
+      "Apple",       "Apricots",    "Avocado",    "Banana", "Blackberries",
+      "Blueberries", "Cranberries", "Grapefruit", "Grapes"};
+};
+TEST_F(AutocompleteTest, emptyString) {
+  ASSERT_EQ(ac.getAllStringsFor(std::string()).size(), dictionary.size());
+}
+
+TEST_F(AutocompleteTest, findWords) {
+  EXPECT_EQ(ac.getAllStringsFor(std::string("Ap")).size(), 2);
+  EXPECT_EQ(ac.getAllStringsFor(std::string("F")).size(), 0);
+  EXPECT_EQ(ac.getAllStringsFor(std::string("Bl")).size(), 2);
+  EXPECT_EQ(ac.getAllStringsFor(std::string("Gr")).size(), 2);
+  EXPECT_EQ(ac.getAllStringsFor(std::string("Avocado")).size(), 1);
+}
+
+TEST_F(AutocompleteTest, wordsContain) {
+  const auto words = ac.getAllStringsFor(std::string("Ap"));
+  EXPECT_NE(std::find(words.begin(), words.end(), "Apricots"), words.end());
+  EXPECT_EQ(std::find(words.begin(), words.end(), "Strawberries"), words.end());
 }
 
 TEST(TrieTestFind, findEmptyString) {

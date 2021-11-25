@@ -26,7 +26,7 @@
     <ClInclude Include="include\Trie.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AutoCompleter.cpp" />
+    <ClCompile Include="src\Autocompleter.cpp" />
     <ClCompile Include="src\Trie.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
