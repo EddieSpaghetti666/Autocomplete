@@ -22,7 +22,7 @@ class Trie {
  private:
   Node** head;
 
-  Node* getNode(const std::string& prefix) const;
+  Node* getSubTree(Node* root, const std::string& prefix) const;
 
   void collectStrings(Node* node, std::string& prefix,
                       std::set<std::string>& strings) const;

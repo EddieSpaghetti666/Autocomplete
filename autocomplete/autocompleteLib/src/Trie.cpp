@@ -1,7 +1,5 @@
 #include "Trie.h"
 
-#include <algorithm>
-
 void Trie::insert(const std::string& key) {
   Node* start = *head;
   for (auto c = key.cbegin(); c != key.cend(); ++c) {
@@ -15,25 +13,17 @@ void Trie::insert(const std::string& key) {
 }
 
 bool Trie::find(const std::string& key) const {
-  Node* start = *head;
-  for (const char c : key) {
-    if (start->children[c]) {
-      start = start->children[c];
-    } else
-      return false;
-  }
-  return true;
+  return getSubTree(*head, key) != nullptr;
 }
 
 std::set<std::string> Trie::stringsWithPrefix(std::string& prefix) const {
   std::set<std::string> strings;
-  auto node = getNode(prefix);
+  auto* node = getSubTree(*head, prefix);
   collectStrings(node, prefix, strings);
   return strings;
 }
 
-Trie::Node* Trie::getNode(const std::string& prefix) const {
-  Node* start = *head;
+Trie::Node* Trie::getSubTree(Node* start, const std::string& prefix) const {
   for (const char c : prefix) {
     if (start->children[c]) {
       start = start->children[c];
@@ -46,10 +36,9 @@ Trie::Node* Trie::getNode(const std::string& prefix) const {
 void Trie::collectStrings(Node* node, std::string& prefix,
                           std::set<std::string>& strings) const {
   if (node == nullptr) return;
-  if (node->isEnd) 
-      strings.insert(prefix);
+  if (node->isEnd) strings.insert(prefix);
   for (auto child : node->children) {
-    if (child != nullptr) {
+    if (child) {
       char c = child->c;
       prefix += c;
       collectStrings(node->children[c], prefix, strings);
