@@ -13,12 +13,12 @@ TEST(Autocomplete, emptyString) {
   ASSERT_EQ(strings, emptyList);
 }
 
-TEST(TrieTest, findEmptyString) {
+TEST(TrieTestFind, findEmptyString) {
   Trie trie;
 
   ASSERT_TRUE(trie.find(""));
 }
-TEST(TrieTest, simpleInsert) {
+TEST(TrieTestFind, simpleInsert) {
   Trie trie;
 
   trie.insert("a");
@@ -26,7 +26,7 @@ TEST(TrieTest, simpleInsert) {
   ASSERT_TRUE(trie.find("a"));
 }
 
-TEST(TrieTest, shouldNotFind) {
+TEST(TrieTestFind, shouldNotFind) {
   Trie trie;
 
   trie.insert("hello");
@@ -34,7 +34,7 @@ TEST(TrieTest, shouldNotFind) {
   ASSERT_FALSE(trie.find("world"));
 }
 
-TEST(TrieTest, emptyInsert) {
+TEST(TrieTestFind, emptyInsert) {
   Trie trie;
 
   trie.insert("");
@@ -42,7 +42,7 @@ TEST(TrieTest, emptyInsert) {
   ASSERT_TRUE(trie.find(""));
 }
 
-TEST(TrieTest, longerInsert) {
+TEST(TrieTestFind, longerInsert) {
   Trie trie;
 
   trie.insert("hello");
@@ -50,7 +50,7 @@ TEST(TrieTest, longerInsert) {
   ASSERT_TRUE(trie.find("hello"));
 }
 
-TEST(TrieTest, multipleInserts) {
+TEST(TrieTestFind, multipleInserts) {
   Trie trie;
 
   trie.insert("hello");
@@ -61,7 +61,7 @@ TEST(TrieTest, multipleInserts) {
   EXPECT_FALSE(trie.find("hello world"));
 }
 
-TEST(TrieTest, insertSamePrefix) {
+TEST(TrieTestFind, insertSamePrefix) {
   Trie trie;
 
   trie.insert("hello");
@@ -71,14 +71,14 @@ TEST(TrieTest, insertSamePrefix) {
   EXPECT_TRUE(trie.find("helium"));
 }
 
-TEST(TrieTest, stringsInEmptyTrie) {
+TEST(TrieTestStrings, stringsInEmptyTrie) {
   Trie trie;
 
   ASSERT_EQ(trie.stringsWithPrefix(std::string("hel")),
             std::set<std::string>());
 }
 
-TEST(TrieTest, oneStringWithPrefix) {
+TEST(TrieTestStrings, oneStringWithPrefix) {
   Trie trie;
 
   trie.insert("hello");
@@ -86,7 +86,7 @@ TEST(TrieTest, oneStringWithPrefix) {
   ASSERT_EQ(trie.stringsWithPrefix(std::string("hel")).size(), 1);
 }
 
-TEST(TrieTest, multipleStringsSamePrefix) {
+TEST(TrieTestStrings, multipleStringsSamePrefix) {
   Trie trie;
 
   trie.insert("hello");
