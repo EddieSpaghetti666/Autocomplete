@@ -23,10 +23,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Autocompleter.h" />
+    <ClInclude Include="include\Spellchecker.h" />
     <ClInclude Include="include\Trie.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Autocompleter.cpp" />
+    <ClCompile Include="src\Spellchecker.cpp" />
     <ClCompile Include="src\Trie.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -1,4 +1,5 @@
 #include <Autocompleter.h>
+#include <Spellchecker.h>
 #include <Trie.h>
 
 #include <set>
@@ -116,4 +117,30 @@ TEST(TrieTestStrings, multipleStringsSamePrefix) {
   trie.insert("help");
 
   ASSERT_EQ(trie.stringsWithPrefix(std::string("hel")).size(), 3);
+}
+
+TEST(SpellChecker, emptyStrings) {
+  Spellchecker sc;
+  ASSERT_EQ(0, sc.getEditDistance("", ""));
+  EXPECT_EQ(5, sc.getEditDistance("", "hello"));
+  EXPECT_EQ(5, sc.getEditDistance("hello", ""));
+}
+
+TEST(SpellChecker, equalStrings) {
+  Spellchecker sc;
+  ASSERT_EQ(0, sc.getEditDistance("hello", "hello"));
+}
+
+TEST(SpellChecker, unequalStrings) {
+  Spellchecker sc;
+  EXPECT_EQ(3, sc.getEditDistance("kitten", "sitting"));
+  EXPECT_EQ(3, sc.getEditDistance("saturday", "sunday"));
+  EXPECT_EQ(10, sc.getEditDistance("Levenshtein", "distance"));
+}
+
+TEST(SpellChecker, longStrings) {
+  Spellchecker sc;
+  EXPECT_EQ(
+      14, sc.getEditDistance("thisisalongteststringtotesteditdistance",
+                             "thisisanotherlongstringtotesteditdistanceagain"));
 }

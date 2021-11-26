@@ -12,7 +12,7 @@ std::vector<std::string> loadDictionary(std::string fileName) {
   std::string word;
   while (fs >> word) {
     std::transform(word.begin(), word.end(), word.begin(), std::tolower);
-    dictionary.emplace_back(word);
+    dictionary.push_back(word);
   }
   return dictionary;
 }

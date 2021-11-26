@@ -24,12 +24,18 @@
     <ClInclude Include="include\Autocompleter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Spellchecker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Trie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Autocompleter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Spellchecker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
