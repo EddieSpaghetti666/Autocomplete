@@ -144,3 +144,34 @@ TEST(SpellChecker, longStrings) {
       14, sc.getEditDistance("thisisalongteststringtotesteditdistance",
                              "thisisanotherlongstringtotesteditdistanceagain"));
 }
+
+class SpellCheckerTest : public ::testing::Test {
+ public:
+  void SetUp() override { sc.setDictionary(dictionary); }
+
+ protected:
+  Spellchecker sc;
+  const std::vector<std::string> dictionary = {
+      "Apple",       "Apricots",    "Avocado",    "Banana", "Blackberries",
+      "Blueberries", "Cranberries", "Grapefruit", "Grapes"};
+};
+
+TEST_F(SpellCheckerTest, findAlltheWords) {
+  sc.setMaxEditDistance(1000);
+  EXPECT_EQ(dictionary.size(), sc.closestWords("test").size());
+}
+
+TEST_F(SpellCheckerTest, findNoWords) {
+  sc.setMaxEditDistance(0);
+  ASSERT_EQ(0, sc.closestWords("NotInTheDictionary!").size());
+}
+
+TEST_F(SpellCheckerTest, findWords) {
+  sc.setMaxEditDistance(4);
+  EXPECT_EQ(2, sc.closestWords("Apripl").size());
+}
+
+TEST_F(SpellCheckerTest, prefixMatching) {
+  sc.setMaxEditDistance(1);
+  EXPECT_EQ(3, sc.withCloseEnoughPrefix("Ab").size());
+}
